@@ -7,8 +7,11 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.os.PowerManager
 import android.util.Log
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+
 
 class MainActivity : AppCompatActivity(), SensorEventListener {
     private lateinit var mSensorManager : SensorManager
