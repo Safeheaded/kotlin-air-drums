@@ -1,6 +1,7 @@
 package com.example.airdrums
 
 import android.content.Context
+import android.content.Intent
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -41,6 +42,12 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         val button = findViewById<Button>(R.id.change_drums_flag)
         button.setOnClickListener {
             canChangeDrums = !canChangeDrums
+        }
+
+        val goToSettingsButton = findViewById<Button>(R.id.go_to_settings)
+        goToSettingsButton.setOnClickListener{
+            val intent = Intent(this@MainActivity, SettingsActivity::class.java)
+            startActivity(intent)
         }
 
         mSensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
@@ -135,18 +142,6 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             }
         }
     }
-
-//    private fun playSound(player: MediaPlayer?, sound: Int){
-//        if(player == null){
-//            player = MediaPlayer.create(this, sound)
-//            player!!.isLooping = false
-//        }
-//        if(player!!.isPlaying){
-//            player!!.seekTo(0)
-//            player!!.pause()
-//        }
-//        player!!.start()
-//    }
 
     override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
         return

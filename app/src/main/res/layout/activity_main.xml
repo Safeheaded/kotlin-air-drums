@@ -31,4 +31,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sensor_value" />
 
+    <Button
+        android:id="@+id/go_to_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="159dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="158dp"
+        android:layout_marginBottom="48dp"
+        android:text="Go To Settings"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/change_drums_flag" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
