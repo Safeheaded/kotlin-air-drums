@@ -34,6 +34,10 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private var mAccelerometerAbsolute : Sensor ?= null
     private var currDirection : String = "N"
     private var canChangeDrums = false
+    private var soundNorth = "north1"
+    private var soundWest = "west1"
+    private var soundSouth = "south1"
+    private var soundEast = "east1"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +46,25 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         val button = findViewById<Button>(R.id.change_drums_flag)
         button.setOnClickListener {
             canChangeDrums = !canChangeDrums
+        }
+        val soundN = intent.getStringExtra("soundNorth")
+        if (soundN != null) {
+            soundNorth = soundN
+        }
+
+        val soundW = intent.getStringExtra("soundWest")
+        if (soundW != null) {
+            soundWest = soundW
+        }
+
+        val soundS = intent.getStringExtra("soundSouth")
+        if (soundS != null) {
+            soundSouth = soundS
+        }
+
+        val soundE = intent.getStringExtra("soundEast")
+        if (soundE != null) {
+            soundEast = soundE
         }
 
         val goToSettingsButton = findViewById<Button>(R.id.go_to_settings)

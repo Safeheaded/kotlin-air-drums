@@ -1,9 +1,11 @@
 package com.example.airdrums
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
@@ -24,9 +26,24 @@ class SettingsActivity : AppCompatActivity() {
     private lateinit var adapterItemsSouth: ArrayAdapter<String>;
     private lateinit var adapterItemsEast: ArrayAdapter<String>;
 
+    private var soundNorth = northItems[0]
+    private var soundWest = westItems[0]
+    private var soundSouth = southItems[0]
+    private var soundEast = eastItems[0]
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settings_activity)
+
+        val save_button = findViewById<Button>(R.id.save_button)
+        save_button.setOnClickListener {
+            val intent = Intent(this@SettingsActivity, MainActivity::class.java)
+            intent.putExtra("soundNorth", soundNorth)
+            intent.putExtra("soundWest", soundWest)
+            intent.putExtra("soundSouth", soundSouth)
+            intent.putExtra("soundEast", soundEast)
+            startActivity(intent)
+        }
 
         autoCompleteTextViewNorth = findViewById(R.id.auto_complete_text)
         autoCompleteTextViewWest = findViewById(R.id.auto_complete_text1)
@@ -49,24 +66,28 @@ class SettingsActivity : AppCompatActivity() {
         autoCompleteTextViewNorth.onItemClickListener =
             AdapterView.OnItemClickListener() { parent, view, position, id ->
                 val item = parent.getItemAtPosition(position).toString()
+                soundNorth = item
                 Toast.makeText(this@SettingsActivity, "Item: $item", Toast.LENGTH_SHORT).show()
             }
 
         autoCompleteTextViewWest.onItemClickListener =
             AdapterView.OnItemClickListener() { parent, view, position, id ->
                 val item = parent.getItemAtPosition(position).toString()
+                soundWest = item
                 Toast.makeText(this@SettingsActivity, "Item: $item", Toast.LENGTH_SHORT).show()
             }
 
         autoCompleteTextViewSouth.onItemClickListener =
             AdapterView.OnItemClickListener() { parent, view, position, id ->
                 val item = parent.getItemAtPosition(position).toString()
+                soundSouth = item
                 Toast.makeText(this@SettingsActivity, "Item: $item", Toast.LENGTH_SHORT).show()
             }
 
         autoCompleteTextViewEast.onItemClickListener =
             AdapterView.OnItemClickListener() { parent, view, position, id ->
                 val item = parent.getItemAtPosition(position).toString()
+                soundEast = item
                 Toast.makeText(this@SettingsActivity, "Item: $item", Toast.LENGTH_SHORT).show()
             }
     }
