@@ -70,6 +70,10 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         val goToSettingsButton = findViewById<Button>(R.id.go_to_settings)
         goToSettingsButton.setOnClickListener{
             val intent = Intent(this@MainActivity, SettingsActivity::class.java)
+            intent.putExtra("soundNorth", soundNorth)
+            intent.putExtra("soundWest", soundWest)
+            intent.putExtra("soundSouth", soundSouth)
+            intent.putExtra("soundEast", soundEast)
             startActivity(intent)
         }
 

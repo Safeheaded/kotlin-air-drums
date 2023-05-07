@@ -45,6 +45,26 @@ class SettingsActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val soundN = intent.getStringExtra("soundNorth")
+        if (soundN != null) {
+            soundNorth = soundN
+        }
+
+        val soundW = intent.getStringExtra("soundWest")
+        if (soundW != null) {
+            soundWest = soundW
+        }
+
+        val soundS = intent.getStringExtra("soundSouth")
+        if (soundS != null) {
+            soundSouth = soundS
+        }
+
+        val soundE = intent.getStringExtra("soundEast")
+        if (soundE != null) {
+            soundEast = soundE
+        }
+
         autoCompleteTextViewNorth = findViewById(R.id.auto_complete_text)
         autoCompleteTextViewWest = findViewById(R.id.auto_complete_text1)
         autoCompleteTextViewSouth = findViewById(R.id.auto_complete_text2)
@@ -58,10 +78,10 @@ class SettingsActivity : AppCompatActivity() {
         autoCompleteTextViewSouth.setAdapter(adapterItemsSouth)
         autoCompleteTextViewEast.setAdapter(adapterItemsEast)
 
-        autoCompleteTextViewNorth.setText(adapterItemsNorth.getItem(0), false)
-        autoCompleteTextViewWest.setText(adapterItemsWest.getItem(0), false)
-        autoCompleteTextViewSouth.setText(adapterItemsSouth.getItem(0), false)
-        autoCompleteTextViewEast.setText(adapterItemsEast.getItem(0), false)
+        autoCompleteTextViewNorth.setText(soundNorth, false)
+        autoCompleteTextViewWest.setText(soundWest, false)
+        autoCompleteTextViewSouth.setText(soundS, false)
+        autoCompleteTextViewEast.setText(soundEast, false)
 
         autoCompleteTextViewNorth.onItemClickListener =
             AdapterView.OnItemClickListener() { parent, view, position, id ->
