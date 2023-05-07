@@ -151,8 +151,8 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                 if((currentAcc > lastAcc || currentAcc < -10) && canPlay){
 //                    Log.d("TAG", "Period: " + )
                     canPlay = false
+                    val newVolume = (Math.log(50.0-((Math.abs(currentAcc) - 5) / 10))/Math.log(50.0)).toFloat()
                     if(currDirection == "N"){
-                        window.decorView.setBackgroundColor(0x001477)
                         if(northPlayer == null){
                             northPlayer = MediaPlayer.create(this, actualSoundN)
                             northPlayer!!.isLooping = false
@@ -161,10 +161,10 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                             northPlayer!!.seekTo(0)
                             northPlayer!!.pause()
                         }
+                        northPlayer!!.setVolume(newVolume, newVolume)
                         northPlayer!!.start()
                     }
                     else if (currDirection == "W"){
-                        window.decorView.setBackgroundColor(0x008009)
                         if(westPlayer == null){
                             westPlayer = MediaPlayer.create(this, actualSoundW)
                             westPlayer!!.isLooping = false
@@ -173,10 +173,10 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                             westPlayer!!.seekTo(0)
                             westPlayer!!.pause()
                         }
+                        westPlayer!!.setVolume(newVolume, newVolume)
                         westPlayer!!.start()
                     }
                     else if (currDirection == "E"){
-                        window.decorView.setBackgroundColor(0xb5a600)
                         if(eastPlayer == null){
                             eastPlayer = MediaPlayer.create(this, actualSoundE)
                             eastPlayer!!.isLooping = false
@@ -185,10 +185,10 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                             eastPlayer!!.seekTo(0)
                             eastPlayer!!.pause()
                         }
+                        eastPlayer!!.setVolume(newVolume, newVolume)
                         eastPlayer!!.start()
                     }
                     else if (currDirection == "S"){
-                        window.decorView.setBackgroundColor(0x730000)
                         if(southPlayer == null){
                             southPlayer = MediaPlayer.create(this, actualSoundS)
                             southPlayer!!.isLooping = false
@@ -197,6 +197,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                             southPlayer!!.seekTo(0)
                             southPlayer!!.pause()
                         }
+                        southPlayer!!.setVolume(newVolume, newVolume)
                         southPlayer!!.start()
                     }
                 }
