@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private var actualSoundS = R.raw.floor_tum_drum_5a
     private var actualSoundE = R.raw.hi_hat_b3
     private lateinit var layout: ConstraintLayout
+    private var currentColor: Int = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,9 +56,22 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         layout = findViewById(R.id.constraintLayout)
         val button = findViewById<Button>(R.id.change_drums_flag)
         layout.setBackgroundColor(Color.argb(255, 0, 13, 133))
+        currentColor = Color.argb(255, 0, 13, 133)
 //        activity = findViewById<MainActivity>(R.layout.activity_main)
-        button.setOnClickListener {
-            canChangeDrums = !canChangeDrums
+//        button.setOnClickListener {
+//            canChangeDrums = !canChangeDrums
+//        }
+        button.setOnTouchListener{ view, motionEvent ->
+            // Controlling the button color.
+            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                canChangeDrums = true
+                layout.setBackgroundColor(Color.rgb(122, 0, 120))
+            } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                canChangeDrums = false
+                layout.setBackgroundColor(currentColor)
+            }
+            view.performClick()
+            view.onTouchEvent(motionEvent)
         }
         val soundN = intent.getStringExtra("soundNorth")
         if (soundN != null) {
@@ -256,10 +270,22 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
     private fun changeActivityColor(direction: String){
         when(direction) {
-            "N" -> layout.setBackgroundColor(Color.argb(255, 0, 13, 133))
-            "W" -> layout.setBackgroundColor(Color.argb(255, 0, 99, 3))
-            "S" -> layout.setBackgroundColor(Color.argb(255, 120, 0, 0))
-            "E" -> layout.setBackgroundColor(Color.argb(255, 189, 173, 0))
+            "N" -> {
+//                layout.setBackgroundColor(Color.argb(255, 0, 13, 133))
+                currentColor = Color.argb(255, 0, 13, 133)
+            }
+            "W" -> {
+//                layout.setBackgroundColor(Color.argb(255, 0, 99, 3))
+                currentColor = Color.argb(255, 0, 99, 3)
+            }
+            "S" -> {
+//                layout.setBackgroundColor(Color.argb(255, 120, 0, 0))
+                currentColor = Color.argb(255, 120, 0, 0)
+            }
+            "E" -> {
+//                layout.setBackgroundColor(Color.argb(255, 189, 173, 0))
+                currentColor = Color.argb(255, 189, 173, 0)
+            }
         }
     }
 }

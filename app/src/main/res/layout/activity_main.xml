@@ -23,29 +23,34 @@
 
     <Button
         android:id="@+id/change_drums_flag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="262dp"
+        android:layout_height="401dp"
         android:layout_marginStart="159dp"
-        android:layout_marginTop="195dp"
         android:layout_marginEnd="158dp"
-        android:layout_marginBottom="114dp"
-        android:text="Button"
+        android:layout_marginBottom="176dp"
+        android:background="#00FFFFFF"
+        android:backgroundTint="#00FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sensor_value" />
+        app:rippleColor="#00FFFFFF"
+        app:strokeColor="#00FFFFFF" />
 
     <Button
         android:id="@+id/go_to_settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="159dp"
-        android:layout_marginTop="17dp"
-        android:layout_marginEnd="158dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginStart="125dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="126dp"
+        android:layout_marginBottom="56dp"
+        android:backgroundTint="#020202"
         android:text="Go To Settings"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/change_drums_flag" />
 
