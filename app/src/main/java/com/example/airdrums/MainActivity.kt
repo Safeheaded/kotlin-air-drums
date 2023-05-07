@@ -2,18 +2,22 @@ package com.example.airdrums
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.provider.CalendarContract.Colors
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import kotlin.math.abs
 
 
@@ -42,12 +46,16 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private var actualSoundW = R.raw.crash_cymbal_b
     private var actualSoundS = R.raw.floor_tum_drum_5a
     private var actualSoundE = R.raw.hi_hat_b3
+    private lateinit var layout: ConstraintLayout
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        layout = findViewById(R.id.constraintLayout)
         val button = findViewById<Button>(R.id.change_drums_flag)
+        layout.setBackgroundColor(Color.argb(255, 0, 13, 133))
+//        activity = findViewById<MainActivity>(R.layout.activity_main)
         button.setOnClickListener {
             canChangeDrums = !canChangeDrums
         }
@@ -87,8 +95,9 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         }
 
         mSensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-
-
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+        actionBar?.hide()
+        supportActionBar?.hide()
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION)
         mMagneticFieldSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
         mAccelerometerAbsolute = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
@@ -122,13 +131,14 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             if (event.sensor.type == Sensor.TYPE_LINEAR_ACCELERATION) {
 //                Log.d("TAG", "SENSOR VAL: " + event.values[2])
                 val currentAcc = event.values[2]
-                if (currentAcc <= -4){
+                if (currentAcc <= -6){
                     canPlay = true
                 }
                 if((currentAcc > lastAcc || currentAcc < -10) && canPlay){
 //                    Log.d("TAG", "Period: " + )
                     canPlay = false
                     if(currDirection == "N"){
+                        window.decorView.setBackgroundColor(0x001477)
                         if(northPlayer == null){
                             northPlayer = MediaPlayer.create(this, actualSoundN)
                             northPlayer!!.isLooping = false
@@ -140,6 +150,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                         northPlayer!!.start()
                     }
                     else if (currDirection == "W"){
+                        window.decorView.setBackgroundColor(0x008009)
                         if(westPlayer == null){
                             westPlayer = MediaPlayer.create(this, actualSoundW)
                             westPlayer!!.isLooping = false
@@ -151,6 +162,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                         westPlayer!!.start()
                     }
                     else if (currDirection == "E"){
+                        window.decorView.setBackgroundColor(0xb5a600)
                         if(eastPlayer == null){
                             eastPlayer = MediaPlayer.create(this, actualSoundE)
                             eastPlayer!!.isLooping = false
@@ -162,6 +174,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                         eastPlayer!!.start()
                     }
                     else if (currDirection == "S"){
+                        window.decorView.setBackgroundColor(0x730000)
                         if(southPlayer == null){
                             southPlayer = MediaPlayer.create(this, actualSoundS)
                             southPlayer!!.isLooping = false
@@ -173,7 +186,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                         southPlayer!!.start()
                     }
                 }
-                if(currentAcc > -4){
+                if(currentAcc > -6){
                     canPlay = false
                 }
                 lastAcc = currentAcc
@@ -183,7 +196,10 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                 SensorManager.getRotationMatrix(rotationMatrix, null, gravity, geoMagnetic)
                 SensorManager.getOrientation(rotationMatrix, orientation)
                 val direction = getDirection(orientation[0]);
-                findViewById<TextView>(R.id.sensor_value).text = direction;
+                if(direction != currDirection){
+                    findViewById<TextView>(R.id.sensor_value).text = direction;
+                    changeActivityColor(direction)
+                }
                 currDirection = direction
 //                Log.d("TAG", "ROTATION: " + orientation[1])
             }
@@ -215,6 +231,18 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             northPlayer!!.release()
             northPlayer = null
         }
+        if (westPlayer != null) {
+            westPlayer!!.release()
+            westPlayer = null
+        }
+        if (southPlayer != null) {
+            southPlayer!!.release()
+            southPlayer = null
+        }
+        if (eastPlayer != null) {
+            eastPlayer!!.release()
+            eastPlayer = null
+        }
     }
 
     private fun getDirection(azimuth: Float): String {
@@ -223,6 +251,15 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             in 135..224 -> "S"
             in 225..314 -> "W"
             else -> "N"
+        }
+    }
+
+    private fun changeActivityColor(direction: String){
+        when(direction) {
+            "N" -> layout.setBackgroundColor(Color.argb(255, 0, 13, 133))
+            "W" -> layout.setBackgroundColor(Color.argb(255, 0, 99, 3))
+            "S" -> layout.setBackgroundColor(Color.argb(255, 120, 0, 0))
+            "E" -> layout.setBackgroundColor(Color.argb(255, 189, 173, 0))
         }
     }
 }

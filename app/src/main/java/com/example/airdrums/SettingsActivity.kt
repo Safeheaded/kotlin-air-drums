@@ -27,9 +27,9 @@ class SettingsActivity : AppCompatActivity() {
     private lateinit var adapterItemsEast: ArrayAdapter<String>;
 
     private var soundNorth = northItems[0]
-    private var soundWest = westItems[0]
-    private var soundSouth = southItems[0]
-    private var soundEast = eastItems[0]
+    private var soundWest = westItems[1]
+    private var soundSouth = southItems[2]
+    private var soundEast = eastItems[3]
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,28 +87,28 @@ class SettingsActivity : AppCompatActivity() {
             AdapterView.OnItemClickListener() { parent, view, position, id ->
                 val item = parent.getItemAtPosition(position).toString()
                 soundNorth = item
-                Toast.makeText(this@SettingsActivity, "Item: $item", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this@SettingsActivity, "Item: $item", Toast.LENGTH_SHORT).show()
             }
 
         autoCompleteTextViewWest.onItemClickListener =
             AdapterView.OnItemClickListener() { parent, view, position, id ->
                 val item = parent.getItemAtPosition(position).toString()
                 soundWest = item
-                Toast.makeText(this@SettingsActivity, "Item: $item", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this@SettingsActivity, "Item: $item", Toast.LENGTH_SHORT).show()
             }
 
         autoCompleteTextViewSouth.onItemClickListener =
             AdapterView.OnItemClickListener() { parent, view, position, id ->
                 val item = parent.getItemAtPosition(position).toString()
                 soundSouth = item
-                Toast.makeText(this@SettingsActivity, "Item: $item", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this@SettingsActivity, "Item: $item", Toast.LENGTH_SHORT).show()
             }
 
         autoCompleteTextViewEast.onItemClickListener =
             AdapterView.OnItemClickListener() { parent, view, position, id ->
                 val item = parent.getItemAtPosition(position).toString()
                 soundEast = item
-                Toast.makeText(this@SettingsActivity, "Item: $item", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this@SettingsActivity, "Item: $item", Toast.LENGTH_SHORT).show()
             }
     }
 }
