@@ -34,10 +34,14 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private var mAccelerometerAbsolute : Sensor ?= null
     private var currDirection : String = "N"
     private var canChangeDrums = false
-    private var soundNorth = "north1"
-    private var soundWest = "west1"
-    private var soundSouth = "south1"
-    private var soundEast = "east1"
+    private var soundNorth = "bass_drum_5a"
+    private var soundWest = "crash_cymbal_b"
+    private var soundSouth = "floor_tum_drum_5a"
+    private var soundEast = "hi_hat_b3"
+    private var actualSoundN = R.raw.bass_drum_5a
+    private var actualSoundW = R.raw.crash_cymbal_b
+    private var actualSoundS = R.raw.floor_tum_drum_5a
+    private var actualSoundE = R.raw.hi_hat_b3
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,6 +71,11 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             soundEast = soundE
         }
 
+        actualSoundN = setActualSound(soundNorth)
+        actualSoundW = setActualSound(soundWest)
+        actualSoundS = setActualSound(soundSouth)
+        actualSoundE = setActualSound(soundEast)
+
         val goToSettingsButton = findViewById<Button>(R.id.go_to_settings)
         goToSettingsButton.setOnClickListener{
             val intent = Intent(this@MainActivity, SettingsActivity::class.java)
@@ -83,14 +92,28 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION)
         mMagneticFieldSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
         mAccelerometerAbsolute = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
-        northPlayer = MediaPlayer.create(this, R.raw.tom_tom_drum_1)
-        southPlayer = MediaPlayer.create(this, R.raw.bass_drum_5a)
-        eastPlayer = MediaPlayer.create(this, R.raw.hi_hat_b3)
-        westPlayer = MediaPlayer.create(this, R.raw.snare_drum_2b)
+        northPlayer = MediaPlayer.create(this, actualSoundN)
+        southPlayer = MediaPlayer.create(this, actualSoundS)
+        eastPlayer = MediaPlayer.create(this, actualSoundE)
+        westPlayer = MediaPlayer.create(this, actualSoundW)
         northPlayer!!.isLooping = false
         southPlayer!!.isLooping = false
         eastPlayer!!.isLooping = false
         westPlayer!!.isLooping = false
+    }
+
+    private fun setActualSound(soundName: String): Int{
+        return when(soundName){
+            "bass_drum_5a" -> R.raw.bass_drum_5a
+            "crash_cymbal_b" -> R.raw.crash_cymbal_b
+            "floor_tum_drum_5a" -> R.raw.floor_tum_drum_5a
+            "hi_hat_b3" -> R.raw.hi_hat_b3
+            "medium_tum_drum_5a" -> R.raw.medium_tom_drum_7a
+            "snare_drum_2b" -> R.raw.snare_drum_2b
+            "snare_drum_3a" -> R.raw.snare_drum_3a
+            "tom_tom_drum_1" -> R.raw.tom_tom_drum_1
+            else -> R.raw.bass_drum_5a
+        }
     }
 
     override fun onSensorChanged(event: SensorEvent?) {
@@ -107,7 +130,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                     canPlay = false
                     if(currDirection == "N"){
                         if(northPlayer == null){
-                            northPlayer = MediaPlayer.create(this, R.raw.tom_tom_drum_1)
+                            northPlayer = MediaPlayer.create(this, actualSoundN)
                             northPlayer!!.isLooping = false
                         }
                         if(northPlayer!!.isPlaying){
@@ -118,7 +141,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                     }
                     else if (currDirection == "W"){
                         if(westPlayer == null){
-                            westPlayer = MediaPlayer.create(this, R.raw.snare_drum_2b)
+                            westPlayer = MediaPlayer.create(this, actualSoundW)
                             westPlayer!!.isLooping = false
                         }
                         if(westPlayer!!.isPlaying){
@@ -129,7 +152,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                     }
                     else if (currDirection == "E"){
                         if(eastPlayer == null){
-                            eastPlayer = MediaPlayer.create(this, R.raw.bass_drum_5a)
+                            eastPlayer = MediaPlayer.create(this, actualSoundE)
                             eastPlayer!!.isLooping = false
                         }
                         if(eastPlayer!!.isPlaying){
@@ -140,7 +163,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                     }
                     else if (currDirection == "S"){
                         if(southPlayer == null){
-                            southPlayer = MediaPlayer.create(this, R.raw.hi_hat_b3)
+                            southPlayer = MediaPlayer.create(this, actualSoundS)
                             southPlayer!!.isLooping = false
                         }
                         if(southPlayer!!.isPlaying){

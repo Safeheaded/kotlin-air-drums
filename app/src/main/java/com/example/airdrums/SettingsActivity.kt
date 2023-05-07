@@ -11,10 +11,10 @@ import androidx.appcompat.app.AppCompatActivity
 
 class SettingsActivity : AppCompatActivity() {
 
-    val northItems: Array<String> = arrayOf("north1", "north2", "north3", "north4")
-    val westItems: Array<String> = arrayOf("west1", "west2", "west3", "west4")
-    val southItems: Array<String> = arrayOf("south1", "south2", "south3", "south4")
-    val eastItems: Array<String> = arrayOf("east1", "east2", "east3", "east4")
+    val northItems: Array<String> = arrayOf("bass_drum_5a", "crash_cymbal_b", "floor_tum_drum_5a", "hi_hat_b3", "medium_tum_drum_5a", "snare_drum_2b", "snare_drum_3a", "tom_tom_drum_1")
+    val westItems: Array<String> = arrayOf("bass_drum_5a", "crash_cymbal_b", "floor_tum_drum_5a", "hi_hat_b3", "medium_tum_drum_5a", "snare_drum_2b", "snare_drum_3a", "tom_tom_drum_1")
+    val southItems: Array<String> = arrayOf("bass_drum_5a", "crash_cymbal_b", "floor_tum_drum_5a", "hi_hat_b3", "medium_tum_drum_5a", "snare_drum_2b", "snare_drum_3a", "tom_tom_drum_1")
+    val eastItems: Array<String> = arrayOf("bass_drum_5a", "crash_cymbal_b", "floor_tum_drum_5a", "hi_hat_b3", "medium_tum_drum_5a", "snare_drum_2b", "snare_drum_3a", "tom_tom_drum_1")
 
     private lateinit var autoCompleteTextViewNorth: AutoCompleteTextView
     private lateinit var autoCompleteTextViewWest: AutoCompleteTextView
